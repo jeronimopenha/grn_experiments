@@ -14,51 +14,64 @@
 
 using namespace std;
 
-void grnPass(){
-    int aux[NUM_NOS];
-    int grn[NUM_NOS];
-    grn[Squaline] = ( grn[Farnesyl_pyrophosphate] );
-    grn[Lanosterol] = ( grn[Squaline] );
-    grn[Acetyl_CoA] = ( grn[Acetyl_CoA] );
-    grn[HMG_CoA_Reductase_RNA] = ( grn[HMG_CoA_Reductase_gene] );
-    grn[Cyp51_RNA] = ( grn[Cyp51_gene] );
-    grn[Septdehydrocholesterol] = ( grn[Lanosterol] );
-    grn[Insig_SREBP_SCAP] =  not ( ( grn[Cholesterol] ) );
-    grn[FPP_Synthase_gene] = ( grn[mSREBP] ) ;
-    grn[HMG_CoA_Reductase_gene] = ( grn[mSREBP] ) ;
-    grn[Acetyl_CoA_acetyltransferase_RNA] = ( grn[Acetyl_CoA_acetyltransferase_gene] ) ;
-    grn[Statins] = ( grn[Statins] ) ;
-    grn[Acetyl_CoA_acetyltransferase_gene] = ( grn[mSREBP] ) ;
-    grn[Desmosterol] = ( grn[Lanosterol] ) ;
-    grn[Mevalonic_Acid] = ( grn[HMG_CoA] and ( ( ( grn[HMG_CoA_Reductase]) ) )    ) ;
-    grn[Acetoacetyl_CoA] = ( grn[Acetyl_CoA] and ( ( ( grn[Acetyl_CoA_acetyltransferase] ) ) )    ) ;
-    grn[Mevalonyl_pyrophosphate] = ( grn[Mevalonic_Acid] );
-    grn[HMG_CoA] = ( grn[Acetoacetyl_CoA] and ( ( ( grn[Acetyl_CoA]  and grn[HMG_CoA_Synthase] ) ) )    ) ;
-    grn[Dimethyl_allyl_pyrophosphate] = ( grn[Isopentenyl_pyrophosphate] ) ;
-    grn[HMG_CoA_Reductase]= ( ( grn[HMG_CoA_Reductase_RNA]  ) and not ( grn[Statins]  ) ) ;
-    grn[FPP_Synthase] = ( grn[FPP_Synthase_RNA] ) ;
-    grn[HMG_CoA_Synthase_RNA] = ( grn[HMG_CoA_Synthase_gene] ) ;
-    grn[SREBP_SCAP] = ( ( grn[Insig_SREBP_SCAP]  ) and not ( grn[Statins]  ) ) ;
-    grn[Geranyl_pyrophosphate] = ( grn[Dimethyl_allyl_pyrophosphate] )  or ( grn[Isopentenyl_pyrophosphate] ) ;
-    grn[Cyp51] = ( grn[Cyp51_RNA] ) ;
-    grn[Isopentenyl_pyrophosphate] = ( grn[Mevalonyl_pyrophosphate] ) ;
-    grn[Acetyl_CoA_acetyltransferase] = ( grn[Acetyl_CoA_acetyltransferase_RNA] ) ;
-    grn[Farnesyl_pyrophosphate] = ( ( grn[Geranyl_pyrophosphate]  ) and not ( grn[FPP_Synthase]  ) ) ;
-    grn[mSREBP] = ( grn[pSREBP] );
-    grn[FPP_Synthase_RNA] = ( grn[FPP_Synthase_gene] ) ;
-    grn[pSREBP] = ( grn[SREBP_SCAP] ) ;
-    grn[HMG_CoA_Synthase_gene] = ( grn[mSREBP] ) ;
-    grn[Cyp51_gene] = ( grn[mSREBP] ) ;
-    grn[Cholesterol] = ( grn[Desmosterol] )  or ( grn[Septdehydrocholesterol] ) ;
-    grn[HMG_CoA_Synthase] = ( grn[HMG_CoA_Synthase_RNA] ) ;
+void grnPass(bitset<NUM_NOS> *grn){
+    bitset<NUM_NOS> aux;
+    aux = (*grn);
+    aux[0] = 0;
+    cout << (*grn) << endl;
+    cout << aux << endl;
+    (*grn)[1] = 0;
+    cout << (*grn) << endl;
 
+    /*
+    grn[Squaline] = (aux[Farnesyl_pyrophosphate]);
+    grn[Lanosterol] = (aux[Squaline]);
+    grn[Acetyl_CoA] = (aux[Acetyl_CoA]);
+    grn[HMG_CoA_Reductase_RNA] = (aux[HMG_CoA_Reductase_gene]);
+    grn[Cyp51_RNA] = (aux[Cyp51_gene]);
+    grn[Septdehydrocholesterol] = (aux[Lanosterol]);
+    grn[Insig_SREBP_SCAP] =  ~ ((aux[Cholesterol]));
+    grn[FPP_Synthase_gene] = (aux[mSREBP]) ;
+    grn[HMG_CoA_Reductase_gene] = (aux[mSREBP]) ;
+    grn[Acetyl_CoA_acetyltransferase_RNA] = (aux[Acetyl_CoA_acetyltransferase_gene]) ;
+    grn[Statins] = (aux[Statins]) ;
+    grn[Acetyl_CoA_acetyltransferase_gene] = (aux[mSREBP]) ;
+    grn[Desmosterol] = (aux[Lanosterol]) ;
+    grn[Mevalonic_Acid] = (aux[HMG_CoA] & (((aux[HMG_CoA_Reductase])))) ;
+    grn[Acetoacetyl_CoA] = (aux[Acetyl_CoA] & (((aux[Acetyl_CoA_acetyltransferase])))) ;
+    grn[Mevalonyl_pyrophosphate] = (aux[Mevalonic_Acid]);
+    grn[HMG_CoA] = (aux[Acetoacetyl_CoA] & (((aux[Acetyl_CoA] & aux[HMG_CoA_Synthase])))) ;
+    grn[Dimethyl_allyl_pyrophosphate] = (aux[Isopentenyl_pyrophosphate]) ;
+    grn[HMG_CoA_Reductase]= ((aux[HMG_CoA_Reductase_RNA]) & ~ (aux[Statins])) ;
+    grn[FPP_Synthase] = (aux[FPP_Synthase_RNA]) ;
+    grn[HMG_CoA_Synthase_RNA] = (aux[HMG_CoA_Synthase_gene]) ;
+    grn[SREBP_SCAP] = ((aux[Insig_SREBP_SCAP]) & ~ (aux[Statins])) ;
+    grn[Geranyl_pyrophosphate] = (aux[Dimethyl_allyl_pyrophosphate])  | (aux[Isopentenyl_pyrophosphate]) ;
+    grn[Cyp51] = (aux[Cyp51_RNA]) ;
+    grn[Isopentenyl_pyrophosphate] = (aux[Mevalonyl_pyrophosphate]) ;
+    grn[Acetyl_CoA_acetyltransferase] = (aux[Acetyl_CoA_acetyltransferase_RNA]) ;
+    grn[Farnesyl_pyrophosphate] = ((aux[Geranyl_pyrophosphate]) & ~ (aux[FPP_Synthase])) ;
+    grn[mSREBP] = (aux[pSREBP]);
+    grn[FPP_Synthase_RNA] = (aux[FPP_Synthase_gene]) ;
+    grn[pSREBP] = (aux[SREBP_SCAP]) ;
+    grn[HMG_CoA_Synthase_gene] = (aux[mSREBP]) ;
+    grn[Cyp51_gene] = (aux[mSREBP]) ;
+    grn[Cholesterol] = (aux[Desmosterol])  | (aux[Septdehydrocholesterol]) ;
+    grn[HMG_CoA_Synthase] = (aux[HMG_CoA_Synthase_RNA]) ;
+    */
 }
 
 int main(){
 
     // default constructor initializes with all bits 0
-    bitset<NUM_NOS> bset1;
+    bitset<NUM_NOS> grn(15);
 
+    grnPass(&grn);
+
+    cout << grn << endl;
+
+
+    /*
     // bset2 is initialized with bits of 20
     bitset<NUM_NOS> bset2(20);
 
@@ -134,7 +147,7 @@ int main(){
     int num = 100;
     cout << "\nDecimal number: " << num
          << "  Binary equivalent: " << bitset<8>(num);
-
+    */
     return 0;
 }
 
