@@ -10,7 +10,7 @@
 #include <bits/stdc++.h>
 #include "defines.h"
 
-#define NUM_NOS 34
+#define NUM_NOS 2
 
 using namespace std;
 
@@ -66,12 +66,33 @@ int main(){
     // default constructor initializes with all bits 0
     bitset<NUM_NOS> grn(15);
 
-    grnPass(&grn);
 
-    cout << grn << endl;
+    for (bitset <NUM_NOS> i (0); i.any() ; i = i + 1 )
+
+    //grnPass(&grn);
+
+    //cout << grn << endl;
 
 
     /*
+     * /*
+ * This function adds 1 to the bitset.
+ *
+ * Since the bitset does not natively support addition we do it manually.
+ * If XOR a bit with 1 leaves it as one then we did not overflow so we can break out
+ * otherwise the bit is zero meaning it was previously one which means we have a bit
+ * overflow which must be added 1 to the next bit etc.
+ *
+void increment(boost::dynamic_bitset<>& bitset)
+{
+    for(int loop = 0;loop < bitset.count(); ++loop)
+    {
+        if ((bitset[loop] ^= 0x1) == 0x1)
+        {    break;
+        }
+    }
+}
+     *
     // bset2 is initialized with bits of 20
     bitset<NUM_NOS> bset2(20);
 
